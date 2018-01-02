@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use DB;
 use App\Shop;
 use Illuminate\Http\Request;
 
@@ -15,7 +15,15 @@ class NBshopsController extends Controller
        return view('NBshops')->with('shops',$this->sortByDistance($shops));
        }
     
-    
+       
+       public function likeShop($shopId,$userId)
+        {   //For Deleting Users
+            
+          DB::table('likes')->insert(
+            ['user_id' => $userId, 'shop_id' => $shopId]
+        );
+           
+        }
     
        public function sortByDistance($shops){
     

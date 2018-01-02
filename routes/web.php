@@ -23,3 +23,5 @@ Route::get('neabyShops', 'NBshopsController@getShops');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('/shop/like/{shopId}/{userId}', 'NBshopsController@likeShop');

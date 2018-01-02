@@ -1,37 +1,24 @@
 
 
 
+<button class="deleteShop" onclick="likeShop(3,7)"  >Delete Task</button>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
 
+<script>
+function likeShop(shopId,userId){
+   
+    
+    $.ajax({
 
+        type:'PUT',
 
+        url:window.location.href+'/shop/like/'+shopId+"/"+userId,
 
-<div id="app">
-<a href="#" v-on:click="Nlist = true , Plist = false">
-    Nearby shops
-</a>
-<a href="#" v-on:click="Plist = true, Nlist = false ">
-Prefered list
-</a>
+      
 
- <span v-show="Plist">prefered list</span>
+     });
 
+}
 
-<span v-show="Nlist">nearby shops</span>
-</div>
-
-
-
-<script src="https://unpkg.com/vue@2.0.3/dist/vue.js"></script>
-<script >
-
-new Vue({
-	el: '#app',
-  data: {
-		Nlist: true,
-        Plist: false
-  }
-});
-
-</script>
-
-
+    </script>
