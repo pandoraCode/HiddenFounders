@@ -1,6 +1,3 @@
-
-
-
 @extends('layouts.app')
 
 @section('content')
@@ -8,7 +5,7 @@
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
-                <div class="panel-heading"><a href="#">Nearby Shops</a> <a  class="pull-right" href="#">Prefered shops</a></div>
+                <div class="panel-heading">Dashboard</div>
 
                 <div class="panel-body">
                     @if (session('status'))
@@ -22,21 +19,18 @@
                     
 
         <div class="row center">
-                @foreach ($shops as $key => $shop)
-<div class="col-md-3 col-sm-3 col-xs-8 column shopbox">
-        <div class="shoptitle">{{$shop['name']}}</div>
-        <img width="130" height="173"   src="http://placehold.it/150x150"  class="img-responsive" />
+<div class="col-md-3 column shopbox">
+        <div class="shoptitle">shop 2</div>
+        <img width="130" height="173"   src="http://placehold.it/150x150"  class="img-responsive"id="IMG_4" alt='' />
         
         <div class="button1" ><a href="#" class="btn btn-danger btn-sm" role="button">Dislike</a>
             <a href="#" class="btn btn-success btn-sm" role="button">like</a>
-        <div class="pricetext">{{$shop['city']}}</div>
+        <div class="pricetext">RABAT</div>
     
-        <div class="">{{$shop['distance']}} Km</div>
-        <hr>
+        <div class="">33 KM</div>
     </div>
         
     </div>
-    @endforeach
 
     
     
@@ -110,4 +104,3 @@ Image placeholders: placemi.com
     </div>
 </div>
 @endsection
-

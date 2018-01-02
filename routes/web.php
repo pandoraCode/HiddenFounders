@@ -20,3 +20,6 @@ Route::get('/test', function () {
 });
 
 Route::get('neabyShops', 'NBshopsController@getShops');
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

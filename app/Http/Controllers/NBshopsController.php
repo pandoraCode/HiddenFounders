@@ -12,7 +12,7 @@ class NBshopsController extends Controller
         //$dis =$this->get_distance_m( 45.767299, 4.834329);
         $shops = Shop::all()->toArray();
     
-       return view('test')->with('shops',$this->sortByDistance($shops));
+       return view('NBshops')->with('shops',$this->sortByDistance($shops));
        }
     
     
