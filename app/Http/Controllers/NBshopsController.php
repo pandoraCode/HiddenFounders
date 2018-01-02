@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 use DB;
+use Auth;
 use App\Shop;
+use App\Like;
 use Illuminate\Http\Request;
 
 class NBshopsController extends Controller
@@ -10,18 +12,80 @@ class NBshopsController extends Controller
     public function getShops(){
 
         //$dis =$this->get_distance_m( 45.767299, 4.834329);
-        $shops = Shop::all()->toArray();
+       // $likedShops =Like::select('shop_id')->get()->toArray();
+         $likedShops = $this->LikedShops();
+        $Nshops = $this->getNBshops($likedShops);
+        $Pshops = $this->getPshops($likedShops);
+
+        $Nshops = json_decode(json_encode($Nshops), true);
+        $Pshops = json_decode(json_encode($Pshops), true);
+        //$shops = $this->NonLikedShops($result);
+        $data = array(
+                'Nshops' => $this->sortByDistance($Nshops),
+                'Pshops' => $this->sortByDistance($Pshops),
+
+        );
+       // $shops = $this->LikedShops();
     
-       return view('NBshops')->with('shops',$this->sortByDistance($shops));
+      return view('NBshops')->with($data);
+      // return view('test')->with('liked',$shops);
+       }
+
+    
+      
+       public function getNBshops($array){
+       return  DB::table('shops')->whereNotIn('id', $array)->get()->toArray();
+       }
+
+       public function getPshops($array){
+        return  DB::table('shops')->whereIn('id', $array)->get()->toArray();
+        }
+
+       public function LikedShops(){
+
+        $userId = Auth::user();
+
+        return  Like::where('user_id', '=',$userId->id )
+             ->pluck('shop_id')->toArray();
+
+         
        }
     
+      
        
+    
+      
+
+   
+       public function removeShop($shopId,$userId)
+        {   //For Deleting Users
+         DB::table('likes')
+                     ->where('user_id','=', $userId)
+                      ->where('shop_id','=', $shopId)
+                      ->delete();
+          
+
+          
+         
+        }
+          
+           
+
+
+      
+
+
        public function likeShop($shopId,$userId)
         {   //For Deleting Users
-            
-          DB::table('likes')->insert(
-            ['user_id' => $userId, 'shop_id' => $shopId]
-        );
+          $exists = DB::table('likes')->where('shop_id','=', $shopId)->first();
+          if($exists === Null){
+            DB::table('likes')->insert(
+              ['user_id' => $userId, 'shop_id' => $shopId]
+          );
+
+          
+          }
+          
            
         }
     

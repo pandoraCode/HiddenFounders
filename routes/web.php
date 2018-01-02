@@ -11,17 +11,16 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
 Route::get('/test', function () {
     return view('test');
 });
 
+
+//Route::get('test', 'NBshopsController@getShops');
 Route::get('neabyShops', 'NBshopsController@getShops');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('/shop/like/{shopId}/{userId}', 'NBshopsController@likeShop');
+Route::get('/likedShop/{shopId}/{userId}', 'NBshopsController@likeShop');
+Route::get('/removeShop/{shopId}/{userId}', 'NBshopsController@removeShop');
