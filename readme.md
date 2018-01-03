@@ -22,6 +22,7 @@ The php web challenge
  > If you have different setup, go to app/config/database.php or .env file and change username and password
 
 ***
+This is all !!
 “I am a developer. I’m one with the Code, and the Code will guide me.”
  
 
