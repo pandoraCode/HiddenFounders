@@ -9,93 +9,95 @@ use Illuminate\Http\Request;
 
 class NBshopsController extends Controller
 {
-    public function getShops(){
 
-        //$dis =$this->get_distance_m( 45.767299, 4.834329);
-       // $likedShops =Like::select('shop_id')->get()->toArray();
-         $likedShops = $this->LikedShops();
+
+  public function __construct()
+  {
+      $this->middleware('auth');
+  }
+
+
+
+  //this function returns the list of nearby shops and prefred shops
+    public function getShops(){
+        
+      //liked shops returns a table of liked shops ids
+        $likedShops = $this->LikedShops();
+
+      //getNBshops returns   nearby Shops
         $Nshops = $this->getNBshops($likedShops);
+
+      //getPshops returns prefred shops 
         $Pshops = $this->getPshops($likedShops);
 
+      //convert stdclass objects to arrays
         $Nshops = json_decode(json_encode($Nshops), true);
         $Pshops = json_decode(json_encode($Pshops), true);
-        //$shops = $this->NonLikedShops($result);
+       
+        
         $data = array(
                 'Nshops' => $this->sortByDistance($Nshops),
                 'Pshops' => $this->sortByDistance($Pshops),
-
-        );
-       // $shops = $this->LikedShops();
-    
-      return view('NBshops')->with($data);
-      // return view('test')->with('liked',$shops);
+             );
+        
+        //return to arrays Nshops and Pshops (Nearby and Prefred)
+          return view('NBshops')->with($data);
+     
        }
 
     
       
-       public function getNBshops($array){
+    public function getNBshops($array){
        return  DB::table('shops')->whereNotIn('id', $array)->get()->toArray();
        }
 
-       public function getPshops($array){
-        return  DB::table('shops')->whereIn('id', $array)->get()->toArray();
-        }
+    public function getPshops($array){
+       return  DB::table('shops')->whereIn('id', $array)->get()->toArray();
+       }
 
-       public function LikedShops(){
 
+  //this functions return an array of liked shops by authentificated user
+    public function LikedShops(){
+        
         $userId = Auth::user();
 
         return  Like::where('user_id', '=',$userId->id )
              ->pluck('shop_id')->toArray();
 
-         
-       }
+          }
     
-      
-       
     
-      
-
-   
-       public function removeShop($shopId,$userId)
-        {   //For Deleting Users
+   //this function removes shop from likes table when remove button is clicked
+    public function removeShop($shopId,$userId)
+        {   
          DB::table('likes')
                      ->where('user_id','=', $userId)
                       ->where('shop_id','=', $shopId)
                       ->delete();
+         }
           
-
           
-         
-        }
-          
-           
-
-
-      
-
-
-       public function likeShop($shopId,$userId)
-        {   //For Deleting Users
+ //this function adds shop to likes table when like button is clicked
+    public function likeShop($shopId,$userId)
+        {   
           $exists = DB::table('likes')->where('shop_id','=', $shopId)->first();
           if($exists === Null){
             DB::table('likes')->insert(
               ['user_id' => $userId, 'shop_id' => $shopId]
           );
-
+         }
           
-          }
-          
-           
         }
-    
+
+
+   //this function returns an array of shops sorted by distance     
        public function sortByDistance($shops){
     
             $distances = array();
     
             foreach($shops as $key => $shop){
-    
-              //  $shops[$shop['distance']] = $this->calculDistance($shop['long'],$shop['lat']) ;
+            
+              //calcul distance return distance between shops and current user location using longitude and latitude.
             $dis = $this->calculDistance($shop['long'],$shop['lat']) ;
             $shop['distance'] = $dis;
             $shops[$key] = $shop;
@@ -112,12 +114,12 @@ class NBshopsController extends Controller
     
        public function calculDistance( $lat2, $lng2) {
     
-        /* longitude and latitude of Hidden Founders location, 
+        /* the default longitude and latitude is Hidden Founders location, 
         in real application every user will have his
         own location calculated using this two parameters */
     
-        $lat1=33.996122; //longitude
-        $lng1=-6.846305; //latitude
+        $lat1=33.996122; //longitude of hidden founders
+        $lng1=-6.846305; //latitude of hidden founders
     
         $earth_radius = 6378137;   //earth raduis
         $rlo1 = deg2rad($lng1);

@@ -79,15 +79,15 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                    Laravel
+                    Hidden Founders Coding challenge
                 </div>
 
                 <div class="links">
-                    <a href="https://laravel.com/docs">Documentation</a>
-                    <a href="https://laracasts.com">Laracasts</a>
-                    <a href="https://laravel-news.com">News</a>
-                    <a href="https://forge.laravel.com">Forge</a>
-                    <a href="https://github.com/laravel/laravel">GitHub</a>
+                    <a href="#">Laravel</a>
+                    <a href="#">Vue.js</a>
+                    <a href="#">Mysql</a>
+                    <a href="#">Jquery</a>
+                    <a href="#">Bootstrap</a>
                 </div>
             </div>
         </div>
