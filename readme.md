@@ -19,7 +19,7 @@ _remember to import after download !!_
 ## After download
 After you download and unzip the project in your htdocs folder assuming you are using xampp there is some steps to follow to fix some expected errors:
  * first run the `composer install` or `composer update`
- * you will have to create a `.env `file manualy, remember to configure the db connection in this file
+ * you will have to create a `.env `file manualy, open `.env.example`, configure your database connection and save as `.env`
  * run `php artisan key:generate `
  * run `php artisan serve `and if everything goes well the application will work 
  
