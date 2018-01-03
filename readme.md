@@ -22,7 +22,12 @@ After you download and unzip the project in your htdocs folder assuming you are 
  * you will have to create a `.env `file manualy, remember to configure the db connection in this file
  * run `php artisan key:generate `
  * run `php artisan serve `and if everything goes well the application will work 
-  
+ 
+ ## Porject main files
+* `/app/http/controllers/NBshopsController`
+* `/app/resources/views/NBshops.blade.php`
+* `/app/public/js/myapp.js`
+ 
 ***
 This is all, thank you !!
 “I am a developer. I’m one with the Code, and the Code will guide me.”
