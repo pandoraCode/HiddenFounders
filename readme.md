@@ -15,12 +15,13 @@ The php web challenge
     * Removed shops will disappear from preferred shops
 ## Application Data 
 > Application data is stored in a Mysql database, you can download it form this link [shops db](http://www.mediafire.com/file/iuuaq2z3x570er6/shops.rar)
-## Notes
-* Import shops db to your Mysql server and make sure the database connection is configured
-     * username = root
-     * password = ''
- > If you have different setup, go to app/config/database.php or .env file and change username and password
-
+## After download
+After you download and unzip the project in your htdocs folder assuming you are using xampp there is some steps to follow to fix some expected errors:
+ 1.first run the composer install or composer update
+ 2.you will have to create a .env file manualy, remember to configure the db connection in this file
+ 3.run php artisan key:generate 
+ 4.run php artisan serve and if everything goes well the application will work 
+  
 ***
 This is all !!
 “I am a developer. I’m one with the Code, and the Code will guide me.”
